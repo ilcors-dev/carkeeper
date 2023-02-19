@@ -2,17 +2,17 @@ package com.carkeeper;
 
 import java.util.ArrayList;
 
-public class Profilo {
+public class Utente {
     private String telefono;
     private String nomeUtente;
     private String avatar;
 
-    private ArrayList<PromemoriaProfilo> promemoria;
+    private ArrayList<PromemoriaUtente> promemoria;
 
-    public Profilo(String telefono, String nomeUtente) {
+    public Utente(String telefono, String nomeUtente) {
         this.telefono = telefono;
         this.nomeUtente = nomeUtente;
-        this.promemoria = new ArrayList<PromemoriaProfilo>();
+        this.promemoria = new ArrayList<PromemoriaUtente>();
     }
 
     public String getTelefono() {
@@ -39,19 +39,19 @@ public class Profilo {
         this.avatar = avatar;
     }
 
-    public ArrayList<PromemoriaProfilo> getPromemoria() {
+    public ArrayList<PromemoriaUtente> getPromemoria() {
         return promemoria;
     }
 
-    public void setPromemoria(ArrayList<PromemoriaProfilo> promemoria) {
+    public void setPromemoria(ArrayList<PromemoriaUtente> promemoria) {
         this.promemoria = promemoria;
     }
 
-    public void addPromemoria(PromemoriaProfilo promemoria) {
+    public void addPromemoria(PromemoriaUtente promemoria) {
         this.promemoria.add(promemoria);
     }
 
-    public void removePromemoria(PromemoriaProfilo promemoria) {
+    public void removePromemoria(PromemoriaUtente promemoria) {
         this.promemoria.remove(promemoria);
     }
 }

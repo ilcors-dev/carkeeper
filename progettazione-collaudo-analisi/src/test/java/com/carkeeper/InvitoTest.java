@@ -10,15 +10,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class InvitoTest {
-    private Profilo mittente;
-    private Profilo destinatario;
+    private Utente mittente;
+    private Utente destinatario;
     private Invito invito;
     private Calendar calendar;
 
     @Before
     public void setUp() {
-        this.mittente = new Profilo("+391237650745", "mittente");
-        this.destinatario = new Profilo("+391437984712", "destinatario");
+        this.mittente = new Utente("+391237650745", "mittente");
+        this.destinatario = new Utente("+391437984712", "destinatario");
 
         calendar = Calendar.getInstance();
         calendar.setTime(new Date());
