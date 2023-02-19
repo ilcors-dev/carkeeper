@@ -36,4 +36,11 @@ public class Invito {
     public String getNumeroTelefonoInvitato() {
         return numeroTelefonoInvitato;
     }
+
+    public StatoInvito getStato(){
+        return null;
+    }
+
+    public void setStato(StatoInvito stato){
+    }
 }
