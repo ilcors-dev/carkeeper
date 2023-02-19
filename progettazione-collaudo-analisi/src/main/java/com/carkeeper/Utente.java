@@ -6,13 +6,14 @@ public class Utente {
     private String telefono;
     private String nomeUtente;
     private String avatar;
-
+    private TipoUtente tipoUtente;
     private ArrayList<PromemoriaUtente> promemoria;
 
     public Utente(String telefono, String nomeUtente) {
         this.telefono = telefono;
         this.nomeUtente = nomeUtente;
         this.promemoria = new ArrayList<PromemoriaUtente>();
+        this.tipoUtente = new TipoUtente();
     }
 
     public String getTelefono() {
@@ -53,5 +54,9 @@ public class Utente {
 
     public void removePromemoria(PromemoriaUtente promemoria) {
         this.promemoria.remove(promemoria);
+    }
+
+    public TipoUtente getStato() {
+        return this.tipoUtente;
     }
 }
