@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
-export default function ProfiloScreen() {
+export default function UserProfileScreen() {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Tab Two</Text>
@@ -12,7 +12,7 @@ export default function ProfiloScreen() {
 				lightColor="#eee"
 				darkColor="rgba(255,255,255,0.1)"
 			/>
-			<EditScreenInfo path="/screens/ProfiloScreen.tsx" />
+			<EditScreenInfo path="/screens/UserProfileScreen.tsx" />
 		</View>
 	);
 }

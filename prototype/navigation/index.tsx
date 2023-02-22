@@ -18,8 +18,8 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import GestioneSpazioScreen from '../screens/GestioneSpazioScreen';
-import ProfiloScreen from '../screens/ProfiloScreen';
+import VehicleSpaceScreen from '../screens/VehicleSpaceScreen';
+import UserProfileScreen from '../screens/UserProfileScreen';
 import {
 	RootStackParamList,
 	RootTabParamList,
@@ -79,25 +79,29 @@ function BottomTabNavigator() {
 
 	return (
 		<BottomTab.Navigator
-			initialRouteName="GestioneSpazio"
+			initialRouteName="HandleVehicleSpace"
 			screenOptions={{
 				tabBarActiveTintColor: Colors[colorScheme].tint,
 			}}
 		>
 			<BottomTab.Screen
-				name="GestioneSpazio"
-				component={GestioneSpazioScreen}
-				options={({ navigation }: RootTabScreenProps<'GestioneSpazio'>) => ({
-					title: 'GestioneSpazio',
+				name="HandleVehicleSpace"
+				component={VehicleSpaceScreen}
+				options={({
+					navigation,
+				}: RootTabScreenProps<'HandleVehicleSpace'>) => ({
+					title: 'HandleVehicleSpace',
+					tabBarShowLabel: false,
 					tabBarIcon: ({ color }) => <TabBarIcon name="car" color={color} />,
 					headerShown: false,
 				})}
 			/>
 			<BottomTab.Screen
-				name="Profilo"
-				component={ProfiloScreen}
+				name="HandleUserProfile"
+				component={UserProfileScreen}
 				options={{
 					title: 'Profilo',
+					tabBarShowLabel: false,
 					tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
 					headerShown: false,
 				}}

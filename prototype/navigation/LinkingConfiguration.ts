@@ -15,14 +15,14 @@ const linking: LinkingOptions<RootStackParamList> = {
 		screens: {
 			Root: {
 				screens: {
-					GestioneSpazio: {
+					HandleVehicleSpace: {
 						screens: {
-							GestioneSpazioScreen: 'one',
+							HandleVehicleSpaceScreen: 'one',
 						},
 					},
-					Profilo: {
+					HandleUserProfile: {
 						screens: {
-							ProfiloScreen: 'two',
+							UserProfileScreen: 'two',
 						},
 					},
 				},
