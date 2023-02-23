@@ -26,6 +26,9 @@ import {
 	RootTabScreenProps,
 } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import ContextCreation from '../models/ContextCreation';
+import { User } from '../models/User';
+import AuthenticationScreen from '../screens/AuthenticationScreen';
 
 export default function Navigation({
 	colorScheme,
@@ -49,11 +52,34 @@ export default function Navigation({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+	const { useRealm } = ContextCreation;
+
+	const realm = useRealm();
+
+	const mock = React.useCallback(async () => {
+		try {
+			realm.write(() => realm.create(User, User.generate('123456')));
+		} catch (error) {
+			console.log(error);
+		}
+
+		console.log(realm.objects(User).map((user) => user.telephone));
+	}, [realm]);
+
+	React.useEffect(() => {
+		mock();
+	}, [mock]);
+
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
 				name="Root"
 				component={BottomTabNavigator}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name="Authentication"
+				component={AuthenticationScreen}
 				options={{ headerShown: false }}
 			/>
 			<Stack.Screen

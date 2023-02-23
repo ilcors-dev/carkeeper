@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Logo } from '../components/Logo';
 import { View } from '../components/Themed';
-import { VehicleSpaceList } from '../components/VehicleSpaceList';
+import { VehicleSpaceList } from '../components/VehicleSpace/VehicleSpaceList';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ContextCreation from '../models/ContextCreation';
