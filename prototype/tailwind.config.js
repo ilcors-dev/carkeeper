@@ -8,7 +8,12 @@ module.exports = {
     "./hooks/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#FFC107",
+        secondary: "#5371FF",
+      }
+    },
   },
   plugins: [],
 }

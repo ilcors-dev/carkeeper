@@ -4,7 +4,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-import Main from './models/Main';
+import ContextCreation from './models/ContextCreation';
+import { useEffect } from 'react';
 
 // import './assets/main.css';
 
@@ -12,7 +13,12 @@ export default function App() {
 	const isLoadingComplete = useCachedResources();
 	const colorScheme = useColorScheme();
 
-	const { RealmProvider } = Main;
+	const { RealmProvider, useRealm } = ContextCreation;
+
+	// const realmSyncConfig: Partial<Realm.SyncConfiguration> = {
+	// 	user: app?.currentUser,
+	// 	partitionValue: 'ExpoTemplate',
+	// };
 
 	if (!isLoadingComplete) {
 		return null;
