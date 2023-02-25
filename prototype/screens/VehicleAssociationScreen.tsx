@@ -1,3 +1,4 @@
+import { Client } from '@shaggytools/nhtsa-api-wrapper';
 import React, { useCallback, useState } from 'react';
 import {
 	ActivityIndicator,
@@ -9,6 +10,7 @@ import {
 } from 'react-native';
 import ContextCreation from '../models/ContextCreation';
 import { Vehicle } from '../models/Vehicle';
+import { VehicleDataPiece } from '../models/VehicleDataPiece';
 import { RootStackScreenProps } from '../types';
 
 export default function VehicleAssociationScreen({
@@ -16,7 +18,7 @@ export default function VehicleAssociationScreen({
 }: RootStackScreenProps<'VehicleAssociation'>) {
 	const [obdCode, setObdCode] = useState('');
 	const [error, setError] = useState('');
-	const { useRealm, useObject } = ContextCreation;
+	const { useRealm, useQuery } = ContextCreation;
 	const [isLoading, setIsLoading] = useState(false);
 	const realm = useRealm();
 
@@ -56,11 +58,30 @@ export default function VehicleAssociationScreen({
 			try {
 				const vehicleData = await Vehicle.generateOBD(obdCode);
 
-				realm.write(async () => realm.create(Vehicle, vehicleData));
+				const vehicle = await realm.write(async () =>
+					realm.create(Vehicle, vehicleData)
+				);
 
-				const vehicle = useObject(Vehicle, vehicleData._id) as Vehicle;
+				console.log('Fetching vehicle data...');
 
-				vehicle.setVehicleData();
+				const vehicleAttributes = await Client.DecodeVin(vehicle.vin);
+
+				console.log(
+					`Fetched vehicle data! Found ${vehicleAttributes.Results.length} items! Saving to realm...`
+				);
+
+				vehicleAttributes.Results.forEach((attribute) => {
+					realm.write(() => {
+						const vehicleDataPiece = realm.create(
+							VehicleDataPiece,
+							VehicleDataPiece.generate(vehicle, attribute)
+						);
+
+						vehicle.vehicleData.push(vehicleDataPiece);
+					});
+				});
+
+				console.log('Saved vehicle data to realm!');
 			} catch (error) {
 				console.log(error);
 			}

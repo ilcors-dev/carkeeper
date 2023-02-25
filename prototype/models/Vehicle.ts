@@ -39,29 +39,10 @@ export class Vehicle extends Realm.Object {
 		},
 	};
 
-	async setVehicleData() {
-		const { useRealm, useQuery } = ContextCreation;
-		const realm = useRealm();
+	getName() {
+		// todo map ids to names
+		const attrs = this.vehicleData.filtered('VariableId IN {29, 26, 39}');
 
-		const vehicleAttributes = await Client.DecodeVin(this.vin);
-		console.log('Fetching vehicle data...');
-		console.log(
-			`Fetched vehicle data! Found ${vehicleAttributes.Results.length} items! Saving to realm...`
-		);
-
-		vehicleAttributes.Results.forEach((attribute) => {
-			realm.write(() => {
-				realm.create(
-					'VehicleDataPiece',
-					{
-						...attribute,
-						vehicle: this,
-					},
-					Realm.UpdateMode.Modified
-				);
-			});
-		});
-
-		console.log(useQuery(VehicleDataPiece));
+		return `${attrs[0].Value} ${attrs[1].Value} ${attrs[2].Value}`;
 	}
 }

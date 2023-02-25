@@ -17,7 +17,7 @@ export const VehicleSpaceItem = ({ vehicle }: Props) => {
 			<View style={styles.carListItem}>
 				<FontAwesome name="car" size={60} color="#fff" />
 				<View>
-					<Text style={styles.carListItemText}>{vehicle.vin}</Text>
+					<Text style={styles.carListItemText}>{vehicle.getName()}</Text>
 					<Text style={styles.carListItemTextDate}>
 						{vehicle.createdAt.toDateString()}
 					</Text>
@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
 	},
 	carListItemText: {
 		color: '#fff',
-		fontSize: 24,
+		fontSize: 18,
 		marginLeft: 20,
 	},
 	carListItemTextDate: {
 		color: '#fff',
-		fontSize: 18,
+		fontSize: 8,
 		marginLeft: 20,
 	},
 });
