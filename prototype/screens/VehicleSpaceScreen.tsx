@@ -1,24 +1,24 @@
-import { FontAwesome } from '@expo/vector-icons';
-import { useCallback } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { Logo } from '../components/Logo';
-import { View } from '../components/Themed';
-import { VehicleSpaceList } from '../components/VehicleSpace/VehicleSpaceList';
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import ContextCreation from '../models/ContextCreation';
-import { VehicleSpace } from '../models/VehicleSpace';
-import { RootTabScreenProps } from '../types';
+import { FontAwesome } from "@expo/vector-icons";
+import { useCallback } from "react";
+import { TouchableOpacity, FlatList } from "react-native";
+import { Logo } from "../components/Logo";
+import { View } from "../components/Themed";
+import { VehicleSpaceList } from "../components/VehicleSpace/VehicleSpaceList";
+import useColorScheme from "../hooks/useColorScheme";
+import ContextCreation from "../models/ContextCreation";
+import { VehicleSpace } from "../models/VehicleSpace";
+import { RootTabScreenProps } from "../types";
+import { styled } from "nativewind";
 
 export default function HandleVehicleSpaceScreen({
 	navigation,
-}: RootTabScreenProps<'HandleVehicleSpace'>) {
+}: RootTabScreenProps<"HandleVehicleSpace">) {
 	const colorScheme = useColorScheme();
 	const { useRealm } = ContextCreation;
 	const realm = useRealm();
 
 	const handleAddVehicleSpace = useCallback(async () => {
-		console.log('Add Vehicle Space');
+		console.log("Add Vehicle Space");
 
 		try {
 			realm.write(() => realm.create(VehicleSpace, VehicleSpace.generate()));
@@ -27,16 +27,21 @@ export default function HandleVehicleSpaceScreen({
 		}
 	}, [realm]);
 
+	const StyledView = styled(View);
+
 	return (
 		<View className="flex h-screen flex-col p-5">
 			<Logo />
-			<TouchableOpacity
-				className="p-4 bg-secondary rounded-full"
-				onPress={handleAddVehicleSpace}
-			>
-				<FontAwesome name="plus" size={35} color={Colors[colorScheme].text} />
-			</TouchableOpacity>
 			<VehicleSpaceList />
+			<TouchableOpacity
+				className="bg-secondary p-4 rounded-full absolute bottom-12 right-6 w-35 h-34"
+				onPress={() => {
+					// realm.write(() => realm.delete(realm.objects(VehicleSpace)));
+					navigation.navigate("VehicleAssociation");
+				}}
+			>
+				<FontAwesome name="plus" size={20} color="white" />
+			</TouchableOpacity>
 		</View>
 	);
 }
