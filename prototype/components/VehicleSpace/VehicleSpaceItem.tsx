@@ -1,46 +1,52 @@
-import { FontAwesome } from "@expo/vector-icons";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Vehicle } from '../../models/Vehicle';
 
 interface Props {
-	uuid: string;
-	createdAt: Date;
+	vehicle: Vehicle;
 }
 
-export const VehicleSpaceItem = ({ uuid, createdAt }: Props) => {
-	const styles = StyleSheet.create({
-		list: {
-			padding: 20,
-		},
-		carListItem: {
-			backgroundColor: "#5371FF",
-			borderRadius: 20,
-			padding: 20,
-			marginBottom: 20,
-			flexDirection: "row",
-			alignItems: "center",
-		},
-		carListItemText: {
-			color: "#fff",
-			fontSize: 24,
-			marginLeft: 20,
-		},
-		carListItemTextDate: {
-			color: "#fff",
-			fontSize: 18,
-			marginLeft: 20,
-		},
-	});
+export const VehicleSpaceItem = ({ vehicle }: Props) => {
+	const navigation = useNavigation();
+
 	return (
-		<TouchableOpacity>
+		<TouchableOpacity
+			onPress={() => navigation.navigate('Vehicle', { _id: vehicle._id })}
+		>
 			<View style={styles.carListItem}>
 				<FontAwesome name="car" size={60} color="#fff" />
 				<View>
-					<Text style={styles.carListItemText}>{uuid}</Text>
+					<Text style={styles.carListItemText}>{vehicle.vin}</Text>
 					<Text style={styles.carListItemTextDate}>
-						{createdAt.toDateString()}
+						{vehicle.createdAt.toDateString()}
 					</Text>
 				</View>
 			</View>
 		</TouchableOpacity>
 	);
 };
+
+const styles = StyleSheet.create({
+	list: {
+		padding: 20,
+	},
+	carListItem: {
+		backgroundColor: '#5371FF',
+		borderRadius: 20,
+		padding: 20,
+		marginBottom: 20,
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	carListItemText: {
+		color: '#fff',
+		fontSize: 24,
+		marginLeft: 20,
+	},
+	carListItemTextDate: {
+		color: '#fff',
+		fontSize: 18,
+		marginLeft: 20,
+	},
+});

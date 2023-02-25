@@ -21,6 +21,7 @@ import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import VehicleAssociationScreen from '../screens/VehicleAssociationScreen';
+import VehicleScreen from '../screens/VehicleScreen';
 import VehicleSpaceScreen from '../screens/VehicleSpaceScreen';
 import {
 	RootStackParamList,
@@ -67,6 +68,11 @@ function RootNavigator() {
 				name="VehicleAssociation"
 				component={VehicleAssociationScreen}
 				options={{ title: 'Vehicle Association' }}
+			/>
+			<Stack.Screen
+				name="Vehicle"
+				component={VehicleScreen}
+				options={{ headerShown: false }}
 			/>
 			<Stack.Screen
 				name="NotFound"

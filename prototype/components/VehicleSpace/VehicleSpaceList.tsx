@@ -6,16 +6,14 @@ import { VehicleSpaceItem } from '../VehicleSpace/VehicleSpaceItem';
 
 export const VehicleSpaceList = () => {
 	const { useQuery } = ContextCreation;
-	const spaces = useQuery<Vehicle>(Vehicle) as Results<Vehicle>;
+	const vehicles = useQuery<Vehicle>(Vehicle) as Results<Vehicle>;
 
 	return (
 		<View>
 			<FlatList
-				data={spaces}
+				data={vehicles}
 				keyExtractor={(space) => space._id.toString()}
-				renderItem={({ item }) => (
-					<VehicleSpaceItem uuid={item.uuid} createdAt={item.createdAt} />
-				)}
+				renderItem={({ item }) => <VehicleSpaceItem vehicle={item} />}
 			/>
 		</View>
 	);

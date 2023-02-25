@@ -1,22 +1,22 @@
+import React, { useCallback, useState } from 'react';
 import {
-	View,
+	ActivityIndicator,
+	StyleSheet,
 	Text,
 	TextInput,
 	TouchableOpacity,
-	StyleSheet,
-	ActivityIndicator,
+	View,
 } from 'react-native';
-import React, { useState, useCallback, useEffect } from 'react';
-import { RootStackScreenProps } from '../types';
 import ContextCreation from '../models/ContextCreation';
 import { Vehicle } from '../models/Vehicle';
+import { RootStackScreenProps } from '../types';
 
 export default function VehicleAssociationScreen({
 	navigation,
 }: RootStackScreenProps<'VehicleAssociation'>) {
 	const [obdCode, setObdCode] = useState('');
 	const [error, setError] = useState('');
-	const { useRealm } = ContextCreation;
+	const { useRealm, useObject } = ContextCreation;
 	const [isLoading, setIsLoading] = useState(false);
 	const realm = useRealm();
 
@@ -54,7 +54,13 @@ export default function VehicleAssociationScreen({
 			console.log('Add Vehicle Space');
 
 			try {
-				realm.write(() => realm.create(Vehicle, Vehicle.generateOBD(obdCode)));
+				const vehicleData = await Vehicle.generateOBD(obdCode);
+
+				realm.write(async () => realm.create(Vehicle, vehicleData));
+
+				const vehicle = useObject(Vehicle, vehicleData._id) as Vehicle;
+
+				vehicle.setVehicleData();
 			} catch (error) {
 				console.log(error);
 			}
@@ -78,6 +84,7 @@ export default function VehicleAssociationScreen({
 				onChangeText={setObdCode}
 				value={obdCode}
 				placeholder="OBD code"
+				keyboardType="number-pad"
 				placeholderTextColor="#ccc"
 				// OBD code is 6 characters long
 				maxLength={6}
