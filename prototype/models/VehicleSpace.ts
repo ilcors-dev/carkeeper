@@ -16,6 +16,15 @@ export class VehicleSpace extends Realm.Object {
 		};
 	}
 
+	static generateOBD(obdCode: string) {
+		return {
+			_id: new Realm.BSON.ObjectId(),
+			uuid: obdCode,
+			createdAt: new Date(),
+			updatedAt: new Date(),
+		};
+	}
+
 	static schema: Realm.ObjectSchema = {
 		name: 'VehicleSpace',
 		primaryKey: '_id',
