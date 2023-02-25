@@ -1,8 +1,8 @@
-import { FlatList, Text, View } from 'react-native';
-import { Results } from 'realm';
-import ContextCreation from '../../models/ContextCreation';
-import { VehicleSpace } from '../../models/VehicleSpace';
-import { VehicleSpaceItem } from '../VehicleSpace/VehicleSpaceItem';
+import { FlatList, Text, View } from "react-native";
+import { Results } from "realm";
+import ContextCreation from "../../models/ContextCreation";
+import { VehicleSpace } from "../../models/VehicleSpace";
+import { VehicleSpaceItem } from "../VehicleSpace/VehicleSpaceItem";
 
 export const VehicleSpaceList = () => {
 	const { useQuery } = ContextCreation;
@@ -14,10 +14,7 @@ export const VehicleSpaceList = () => {
 				data={spaces}
 				keyExtractor={(space) => space._id.toString()}
 				renderItem={({ item }) => (
-					<VehicleSpaceItem
-						id={item._objectKey().toString()}
-						createdAt={item.createdAt}
-					/>
+					<VehicleSpaceItem uuid={item.uuid} createdAt={item.createdAt} />
 				)}
 			/>
 		</View>
