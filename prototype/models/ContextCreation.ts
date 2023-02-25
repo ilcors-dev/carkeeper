@@ -1,9 +1,9 @@
 import { createRealmContext } from '@realm/react';
 import { User } from './User';
-import { VehicleSpace } from './VehicleSpace';
+import { Vehicle } from './Vehicle';
 
 const config = {
-	schema: [VehicleSpace, User],
+	schema: [Vehicle, User],
 	schemaVersion: 2,
 };
 

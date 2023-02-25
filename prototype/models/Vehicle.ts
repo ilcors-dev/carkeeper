@@ -1,7 +1,7 @@
 import uuid from 'react-uuid';
 import Realm from 'realm';
 
-export class VehicleSpace extends Realm.Object {
+export class Vehicle extends Realm.Object {
 	_id!: Realm.BSON.ObjectId;
 	uuid!: string;
 	createdAt!: Date;
@@ -26,7 +26,7 @@ export class VehicleSpace extends Realm.Object {
 	}
 
 	static schema: Realm.ObjectSchema = {
-		name: 'VehicleSpace',
+		name: 'Vehicle',
 		primaryKey: '_id',
 		properties: {
 			_id: { type: 'objectId', default: new Realm.BSON.ObjectId() },

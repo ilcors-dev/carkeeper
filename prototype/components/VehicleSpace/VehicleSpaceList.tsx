@@ -1,12 +1,12 @@
-import { FlatList, Text, View } from "react-native";
-import { Results } from "realm";
-import ContextCreation from "../../models/ContextCreation";
-import { VehicleSpace } from "../../models/VehicleSpace";
-import { VehicleSpaceItem } from "../VehicleSpace/VehicleSpaceItem";
+import { FlatList, Text, View } from 'react-native';
+import { Results } from 'realm';
+import ContextCreation from '../../models/ContextCreation';
+import { Vehicle } from '../../models/Vehicle';
+import { VehicleSpaceItem } from '../Vehicle/VehicleSpaceItem';
 
 export const VehicleSpaceList = () => {
 	const { useQuery } = ContextCreation;
-	const spaces = useQuery<VehicleSpace>(VehicleSpace) as Results<VehicleSpace>;
+	const spaces = useQuery<Vehicle>(Vehicle) as Results<Vehicle>;
 
 	return (
 		<View>

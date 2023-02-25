@@ -3,10 +3,10 @@ import { useCallback } from 'react';
 import { TouchableOpacity, FlatList } from 'react-native';
 import { Logo } from '../components/Logo';
 import { View } from '../components/Themed';
-import { VehicleSpaceList } from '../components/VehicleSpace/VehicleSpaceList';
+import { VehicleSpaceList } from '../components/Vehicle/VehicleSpaceList';
 import useColorScheme from '../hooks/useColorScheme';
 import ContextCreation from '../models/ContextCreation';
-import { VehicleSpace } from '../models/VehicleSpace';
+import { Vehicle } from '../models/Vehicle';
 import { RootTabScreenProps } from '../types';
 import { styled } from 'nativewind';
 
@@ -20,7 +20,7 @@ export default function HandleVehicleSpaceScreen({
 		console.log('Add Vehicle Space');
 
 		try {
-			realm.write(() => realm.create(VehicleSpace, VehicleSpace.generate()));
+			realm.write(() => realm.create(Vehicle, Vehicle.generate()));
 		} catch (error) {
 			console.log(error);
 		}
@@ -35,7 +35,7 @@ export default function HandleVehicleSpaceScreen({
 			<TouchableOpacity
 				className="bg-secondary p-4 rounded-full absolute bottom-12 right-6 w-35 h-34"
 				onPress={() => {
-					// realm.write(() => realm.delete(realm.objects(VehicleSpace)));
+					// realm.write(() => realm.delete(realm.objects(Vehicle)));
 					navigation.navigate('VehicleAssociation');
 				}}
 			>
