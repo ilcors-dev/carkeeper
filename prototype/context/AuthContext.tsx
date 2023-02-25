@@ -4,13 +4,13 @@ import ContextCreation from '../models/ContextCreation';
 import { User } from '../models/User';
 
 interface AuthState {
-	user: null;
+	user: null | User;
 	isLoggedIn: boolean;
 	loginError: string | null;
 }
 
 export interface AuthStateContext extends AuthState {
-	login: (telephone: string, pin: string) => void;
+	login: (telephone: string, pin: string) => boolean;
 	logout: () => void;
 }
 
@@ -31,15 +31,6 @@ export const AuthProvider = ({ children }: Props) => {
 	const { useRealm } = ContextCreation;
 	const realm = useRealm();
 
-	const setLoginSuccess = (isLoggedIn: boolean) =>
-		setState({
-			...state,
-			isLoggedIn,
-		});
-
-	const setLoginError = (loginError: string | null) =>
-		setState({ ...state, loginError });
-
 	const login = (telephone: string, pin: string) => {
 		console.log(`Logging in with telephone: ${telephone} and pin: ${pin}`);
 
@@ -48,25 +39,40 @@ export const AuthProvider = ({ children }: Props) => {
 			.filtered(`telephone = "${telephone}"`) as Results<User>;
 
 		if (matching.length === 0) {
-			setLoginError('User not found');
-			return;
+			setState({
+				...state,
+				loginError: 'User not found',
+			});
+			return false;
 		}
 
 		const user = matching[0];
 
 		if (user.pin !== pin) {
-			setLoginSuccess(false);
-			setLoginError('Wrong pin');
-			return;
+			setState({
+				...state,
+				loginError: 'Wrong pin',
+			});
+			return false;
 		}
 
-		setLoginSuccess(true);
-		setLoginError(null);
+		setState({
+			...state,
+			user,
+			isLoggedIn: true,
+			loginError: null,
+		});
+
+		return true;
 	};
 
 	const logout = () => {
-		setLoginSuccess(false);
-		setLoginError(null);
+		setState({
+			...state,
+			user: null,
+			isLoggedIn: false,
+			loginError: null,
+		});
 	};
 
 	return (

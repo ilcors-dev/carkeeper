@@ -1,3 +1,4 @@
+import { FontAwesome } from '@expo/vector-icons';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Text, TextInput, TouchableOpacity } from 'react-native';
 import { Logo } from '../components/Logo';
@@ -28,17 +29,17 @@ export default function AuthenticationScreen({
 
 	const realm = useRealm();
 
-	const signIn = useCallback(async () => {
-		login(credentials.telephone, credentials.pin);
+	const signIn = () => {
+		const ok = login(credentials.telephone, credentials.pin);
 
-		if (!loginError) {
+		if (ok) {
 			console.log('Login success');
 			navigation.navigate('Root');
 			return;
 		}
 
 		console.log('Login failed');
-	}, [realm]);
+	};
 
 	const mock = useCallback(async () => {
 		const u = realm.objects(User).filtered('telephone = "+391234567890"');
@@ -67,34 +68,45 @@ export default function AuthenticationScreen({
 		<View className="flex h-screen flex-col p-5">
 			<Logo />
 			<View className="grid grid-cols-1 gap-y-5 my-auto">
-				<TextInput
-					className="p-2 px-4 rounded-lg bg-secondary text-white"
-					placeholderTextColor="#fff"
-					placeholder="Telephone"
-					defaultValue="+391234567890"
-					onChangeText={(text) =>
-						setCredentials({ ...credentials, telephone: text })
-					}
-				/>
-				<TextInput
-					className="p-2 px-4 rounded-lg bg-secondary text-white"
-					placeholderTextColor="#fff"
-					placeholder="Pin"
-					secureTextEntry={true}
-					maxLength={6}
-					keyboardType="number-pad"
-					defaultValue="123456"
-					onChangeText={(text) => setCredentials({ ...credentials, pin: text })}
-				/>
+				<View className="flex flex-col space-y-2">
+					<Text className="font-bold">Telephone Number:</Text>
+					<TextInput
+						className="p-2 px-4 rounded-lg bg-secondary text-white"
+						placeholderTextColor="#fff"
+						placeholder="Telephone"
+						defaultValue="+391234567890"
+						keyboardType="phone-pad"
+						maxLength={13}
+						onChangeText={(text) =>
+							setCredentials({ ...credentials, telephone: text })
+						}
+					/>
+				</View>
+				<View className="flex flex-col space-y-2">
+					<Text className="font-bold">Pin:</Text>
+					<TextInput
+						className="p-2 px-4 rounded-lg bg-secondary text-white"
+						placeholderTextColor="#fff"
+						placeholder="Pin"
+						secureTextEntry={true}
+						maxLength={6}
+						keyboardType="number-pad"
+						defaultValue="123456"
+						onChangeText={(text) =>
+							setCredentials({ ...credentials, pin: text })
+						}
+					/>
+				</View>
 				{loginError && (
 					<Text className="text-red-400">
 						Credentials error: try with +391234567890 e 123456
 					</Text>
 				)}
 				<TouchableOpacity
-					className="p-2 px-4 rounded-lg bg-primary"
+					className="p-2 px-4 rounded-lg bg-primary flex flex-row space-x-2 justify-center"
 					onPress={signIn}
 				>
+					<FontAwesome name="sign-in" size={20} color="white" />
 					<Text className="text-center text-white">Login</Text>
 				</TouchableOpacity>
 			</View>
