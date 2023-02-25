@@ -31,6 +31,12 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e2f62017-c7cc-4948-a3d0-486506834ab3"
+      }
+    },
+    "owner": "ilcorsdev"
   }
 }
