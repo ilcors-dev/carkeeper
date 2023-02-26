@@ -1,20 +1,18 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { ChatMessage } from "../../models/ChatMessage";
 import Avatar from "../Avatar";
 
 interface Props {
-	type: string;
-	body: string;
+	message: ChatMessage;
 }
 
-export const ChatMessageItem = ({ type, body }: Props) => {
-	// today's date in dd mmm yyyy format
-	const timestamp = new Date().toLocaleDateString("it-IT");
-
+export const ChatMessageItem = ({ message }: Props) => {
 	const title = () => {
-		if (type === "travel") {
-			return "Statistiche Viaggio";
+		if (message.type === "travel") {
+			return "Statistiche del viaggio";
 		}
+		return message.senderUuid;
 	};
 
 	return (
@@ -23,9 +21,11 @@ export const ChatMessageItem = ({ type, body }: Props) => {
 			<View style={styles.messageContainer}>
 				<View style={styles.messageHeader}>
 					<Text style={styles.messageTitle}>{title()}</Text>
-					<Text style={styles.messageTimestamp}>{timestamp}</Text>
+					<Text style={styles.messageTimestamp}>
+						{message.createdAt.toLocaleDateString("it-IT")}
+					</Text>
 				</View>
-				<Text style={styles.messageBody}>{body}</Text>
+				<Text style={styles.messageBody}>{message.body}</Text>
 			</View>
 		</View>
 	);
