@@ -22,10 +22,7 @@ export const Chat = ({ messages }: Props) => {
 		<View style={styles.container}>
 			<ScrollView>
 				{messages.map((message) => (
-					<ChatMessageItem
-						type={message.type}
-						body={message.body}
-					></ChatMessageItem>
+					<ChatMessageItem message={message}></ChatMessageItem>
 				))}
 			</ScrollView>
 		</View>
