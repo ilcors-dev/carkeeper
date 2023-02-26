@@ -5,12 +5,14 @@ import { getRealVin } from 'randomvin';
 import { Client } from '@shaggytools/nhtsa-api-wrapper';
 import { VehicleDataPiece } from './VehicleDataPiece';
 import ContextCreation from './ContextCreation';
+import { ChatMessage } from './ChatMessage';
 
 export class Vehicle extends Realm.Object {
 	_id!: Realm.BSON.ObjectId;
 	uuid!: string;
 	vin!: string;
 	vehicleData!: List<VehicleDataPiece>;
+	chat!: List<ChatMessage>
 	createdAt!: Date;
 	updatedAt!: Date;
 
@@ -34,6 +36,7 @@ export class Vehicle extends Realm.Object {
 			uuid: { type: 'string', default: uuid() },
 			vin: 'string',
 			vehicleData: 'VehicleDataPiece[]',
+			chat: 'ChatMessage[]',
 			createdAt: { type: 'date', default: new Date() },
 			updatedAt: { type: 'date', default: new Date() },
 		},
