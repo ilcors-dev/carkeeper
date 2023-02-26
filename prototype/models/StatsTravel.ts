@@ -4,6 +4,7 @@ import Realm from 'realm';
 export class StatsTravel extends Realm.Object {
 	_id!: Realm.BSON.ObjectId;
 	uuid!: string;
+	uuidVehicle!: string;
 
 	inizio!: Date;
 	fine!: Date;
@@ -24,7 +25,7 @@ export class StatsTravel extends Realm.Object {
 	createdAt!: Date;
 	updatedAt!: Date;
 
-	static generate() {
+	static generate(uuidVehicle: string) {
 		// past date between 1 and 30 days ago
 		let pastDate = new Date(new Date().getTime() - (Math.random() * (30 - 1) + 1) * 24 * 60 * 60 * 1000);
 		let now = new Date();
@@ -53,6 +54,7 @@ export class StatsTravel extends Realm.Object {
 		return {
 			_id: new Realm.BSON.ObjectId(),
 			uuid: uuid(),
+			uuidVehicle: uuidVehicle,
 			inizio: pastDate,
 			fine: now,
 			durata: durata,
@@ -76,6 +78,7 @@ export class StatsTravel extends Realm.Object {
 		properties: {
 			_id: { type: 'objectId', default: new Realm.BSON.ObjectId() },
 			uuid: { type: 'string', default: uuid() },
+			uuidVehicle: { type: 'string' },
 			inizio: { type: 'date' },
 			fine: { type: 'date' },
 			durata: { type: 'int' },
