@@ -43,6 +43,6 @@ export class Vehicle extends Realm.Object {
 		// todo map ids to names
 		const attrs = this.vehicleData.filtered('VariableId IN {29, 26, 39}');
 
-		return `${attrs[0].Value} ${attrs[1].Value} ${attrs[2].Value}`;
+		return `${attrs[0]?.Value} ${attrs[1]?.Value} ${attrs[2]?.Value}`;
 	}
 }
