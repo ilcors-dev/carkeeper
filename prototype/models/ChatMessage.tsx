@@ -6,6 +6,7 @@ export class ChatMessage extends Realm.Object {
 	senderUuid!: string;
 	body!: string;
 	type!: string;
+	createdAt!: Date;
 
 	static generate(type: string) {
 		return {
@@ -13,6 +14,7 @@ export class ChatMessage extends Realm.Object {
 			senderUuid: uuid(),
 			body: "Questo è un viaggio",
 			type: type,
+			createdAt: new Date(),
 		};
 	}
 
