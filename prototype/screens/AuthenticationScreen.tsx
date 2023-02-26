@@ -103,11 +103,11 @@ export default function AuthenticationScreen({
 					</Text>
 				)}
 				<TouchableOpacity
-					className="p-2 px-4 rounded-lg bg-primary flex flex-row space-x-2 justify-center"
+					className="p-2 px-4 rounded-lg bg-primary flex flex-row space-x-2 justify-center border"
 					onPress={signIn}
 				>
-					<FontAwesome name="sign-in" size={20} color="white" />
-					<Text className="text-center text-white">Login</Text>
+					<FontAwesome name="sign-in" size={20} />
+					<Text className="text-center">Login</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
