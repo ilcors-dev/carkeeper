@@ -1,5 +1,6 @@
 import uuid from 'react-uuid';
 import Realm from 'realm';
+import { Duration } from "ts-duration";
 
 export class StatsTravel extends Realm.Object {
 	_id!: Realm.BSON.ObjectId;
@@ -21,6 +22,8 @@ export class StatsTravel extends Realm.Object {
 
 	velocita_media!: number;
 	velocita_massima!: number;
+
+	messageId?: Realm.BSON.ObjectId;
 
 	createdAt!: Date;
 	updatedAt!: Date;
@@ -45,6 +48,10 @@ export class StatsTravel extends Realm.Object {
 		let carburante_inizio = Math.floor(Math.random() * (100 - 50) + 50);
 		let carburante_usato = Math.floor(km_percorsi / consumo_medio);
 		let carburante_fine = carburante_inizio - carburante_usato;
+		if (carburante_fine < 0) {
+			carburante_fine = 0;
+			carburante_usato = carburante_inizio;
+		}
 
 		// velocita_media between 60 and 90
 		let velocita_media = Math.floor(Math.random() * (90 - 60) + 60);
@@ -91,8 +98,13 @@ export class StatsTravel extends Realm.Object {
 			consumo_medio: { type: 'int' },
 			velocita_media: { type: 'int' },
 			velocita_massima: { type: 'int' },
+			messageId: { type: 'objectId', optional: true },
 			createdAt: { type: 'date', default: new Date() },
 			updatedAt: { type: 'date', default: new Date() },
 		},
 	};
+
+	toMessage() {
+		return "Durata " + Duration.hour(this.fine.getDate() - this.inizio.getDate()) + " Km percorsi " + this.km_percorsi + " km carburante usato " + this.carburante_usato + " L velocita media " + this.velocita_media + " km/h";
+	}
 }
