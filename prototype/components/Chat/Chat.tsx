@@ -6,6 +6,7 @@ import {
 	View,
 	StyleSheet,
 	TouchableOpacity,
+	FlatList,
 } from 'react-native';
 import { ChatMessage } from '../../models/ChatMessage';
 import { ChatMessageItem } from './ChatMessageItem';
@@ -19,12 +20,12 @@ export const Chat = ({ messages }: Props) => {
 	const navigation = useNavigation();
 
 	return (
-		<View style={styles.container}>
-			<ScrollView>
-				{messages.map((message) => (
-					<ChatMessageItem message={message}></ChatMessageItem>
-				))}
-			</ScrollView>
+		<View className="overflow-auto h-[50vh] mt-4">
+			<FlatList
+				data={messages}
+				keyExtractor={(message) => message._id.toString()}
+				renderItem={({ item }) => <ChatMessageItem message={item} />}
+			/>
 		</View>
 	);
 };
