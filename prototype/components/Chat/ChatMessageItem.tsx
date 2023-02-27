@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { ChatMessage } from "../../models/ChatMessage";
 import Avatar from "../Avatar";
 
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export const ChatMessageItem = ({ message }: Props) => {
+	const navigation = useNavigation();
+
 	const title = () => {
 		if (message.type === "travel") {
 			return "Statistiche del viaggio";
@@ -18,15 +21,22 @@ export const ChatMessageItem = ({ message }: Props) => {
 	return (
 		<View style={styles.container}>
 			<Avatar></Avatar>
-			<View style={styles.messageContainer}>
-				<View style={styles.messageHeader}>
-					<Text style={styles.messageTitle}>{title()}</Text>
-					<Text style={styles.messageTimestamp}>
-						{message.createdAt.toLocaleDateString("it-IT")}
-					</Text>
+			<TouchableOpacity
+				style={styles.messageContainer}
+				onPress={() => {
+					navigation.navigate("StatsTravel", { _id: message._id });
+				}}
+			>
+				<View style={styles.messageContainer}>
+					<View style={styles.messageHeader}>
+						<Text style={styles.messageTitle}>{title()}</Text>
+						<Text style={styles.messageTimestamp}>
+							{message.createdAt.toLocaleDateString("it-IT")}
+						</Text>
+					</View>
+					<Text style={styles.messageBody}>{message.body}</Text>
 				</View>
-				<Text style={styles.messageBody}>{message.body}</Text>
-			</View>
+			</TouchableOpacity>
 		</View>
 	);
 };

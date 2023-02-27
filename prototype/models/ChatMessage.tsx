@@ -3,16 +3,18 @@ import Realm from "realm";
 
 export class ChatMessage extends Realm.Object {
 	_id!: Realm.BSON.ObjectId;
+	uuid!: string;
 	senderUuid!: string;
 	body!: string;
 	type!: string;
 	createdAt!: Date;
 
-	static generate(type: string) {
+	static generate(type: string, body: string) {
 		return {
 			_id: new Realm.BSON.ObjectId(),
+			uuid: uuid(),
 			senderUuid: uuid(),
-			body: "Questo è un viaggio",
+			body: body,
 			type: type,
 			createdAt: new Date(),
 		};
