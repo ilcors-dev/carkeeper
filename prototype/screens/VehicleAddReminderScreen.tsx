@@ -32,6 +32,11 @@ export default function VehicleAddReminderScreen({
 			(reminder) => reminder.category === reminderData.category
 		);
 
+		if (!reminderData.category || !reminderData.expiresAt) {
+			setError('Please fill all fields');
+			return;
+		}
+
 		if (alreadyExists) {
 			setError(
 				`Reminder of type ${reminderData.category.toUpperCase()} already exists`
