@@ -6,6 +6,7 @@ import { Chat } from "../components/Chat/Chat";
 import { Logo } from "../components/Logo";
 import { ChatMessage } from "../models/ChatMessage";
 import ContextCreation from "../models/ContextCreation";
+import { StatsTravel } from "../models/StatsTravel";
 import { Vehicle } from "../models/Vehicle";
 import { VehicleDataPiece } from "../models/VehicleDataPiece";
 import { RootStackScreenProps } from "../types";
@@ -29,7 +30,13 @@ export default function VehicleScreen({
 		console.log("Add message to vehicle chat");
 
 		try {
-			const messageData = ChatMessage.generate("travel");
+			const statsTravel = StatsTravel.generate(vehicle.uuid);
+
+			const travel = await realm.write(async () =>
+				realm.create(StatsTravel, statsTravel)
+			);
+
+			const messageData = ChatMessage.generate("travel", travel.toMessage());
 
 			const message = await realm.write(async () =>
 				realm.create(ChatMessage, messageData)
@@ -37,6 +44,7 @@ export default function VehicleScreen({
 
 			await realm.write(async () => {
 				vehicle.chat.push(message);
+				travel.messageId = message._id;
 			});
 		} catch (error) {
 			console.log(error);
