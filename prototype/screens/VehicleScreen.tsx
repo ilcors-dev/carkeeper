@@ -1,20 +1,21 @@
-import { FontAwesome5 } from "@expo/vector-icons";
-import React, { useCallback } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { Results } from "realm";
-import { Chat } from "../components/Chat/Chat";
-import { Logo } from "../components/Logo";
-import { ChatMessage } from "../models/ChatMessage";
-import ContextCreation from "../models/ContextCreation";
-import { StatsTravel } from "../models/StatsTravel";
-import { Vehicle } from "../models/Vehicle";
-import { VehicleDataPiece } from "../models/VehicleDataPiece";
-import { RootStackScreenProps } from "../types";
+import { FontAwesome5 } from '@expo/vector-icons';
+import React, { useCallback } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { Results } from 'realm';
+import { Chat } from '../components/Chat/Chat';
+import { Logo } from '../components/Logo';
+import { VehicleReminderList } from '../components/VehicleReminder/VehicleReminderList';
+import { ChatMessage } from '../models/ChatMessage';
+import ContextCreation from '../models/ContextCreation';
+import { StatsTravel } from '../models/StatsTravel';
+import { Vehicle } from '../models/Vehicle';
+import { VehicleDataPiece } from '../models/VehicleDataPiece';
+import { RootStackScreenProps } from '../types';
 
 export default function VehicleScreen({
 	route,
 	navigation,
-}: RootStackScreenProps<"Vehicle">) {
+}: RootStackScreenProps<'Vehicle'>) {
 	const { useRealm, useObject, useQuery } = ContextCreation;
 	const realm = useRealm();
 	const vehicle = useObject(Vehicle, route.params._id) as Vehicle;
@@ -27,7 +28,7 @@ export default function VehicleScreen({
 	}, [realm]);
 
 	const handleGenerateMessage = useCallback(async () => {
-		console.log("Add message to vehicle chat");
+		console.log('Add message to vehicle chat');
 
 		try {
 			const statsTravel = StatsTravel.generate(vehicle.uuid);
@@ -36,7 +37,7 @@ export default function VehicleScreen({
 				realm.create(StatsTravel, statsTravel)
 			);
 
-			const messageData = ChatMessage.generate("travel", travel.toMessage());
+			const messageData = ChatMessage.generate('travel', travel.toMessage());
 
 			const message = await realm.write(async () =>
 				realm.create(ChatMessage, messageData)
@@ -53,8 +54,7 @@ export default function VehicleScreen({
 
 	return (
 		<View className="flex h-screen flex-col p-5 bg-primary">
-			<Logo />
-			<View className="flex flex-col space-y-4">
+			<View className="flex flex-col space-y-4 mt-10">
 				<View className="p-4 px-6 flex flex-col items-center space-x-4 border rounded-lg">
 					<View className="flex flex-row">
 						<FontAwesome5 name="car" size={40} color="#000" />
@@ -85,6 +85,14 @@ export default function VehicleScreen({
 						>
 							<FontAwesome5 name="plus" size={16} color="#fff" />
 						</TouchableOpacity>
+						<TouchableOpacity
+							className="p-2 ml-4 px-4 rounded-lg bg-secondary flex flex-row space-x-3 justify-center items-center"
+							onPress={() =>
+								navigation.navigate('VehicleAddReminder', { _id: vehicle._id })
+							}
+						>
+							<FontAwesome5 name="clock" size={16} color="#fff" />
+						</TouchableOpacity>
 					</View>
 					<View className="flex flex-row">
 						<Text className="mt-2 text-base font-bold">
@@ -109,9 +117,7 @@ export default function VehicleScreen({
 					</View>
 				</View>
 				<View className="p-4 px-6 bg-secondary rounded-lg">
-					<View className="flex flex-row justify-around">
-						<Text className="text-white">scadenze</Text>
-					</View>
+					<VehicleReminderList reminders={vehicle.reminders} />
 				</View>
 				<Chat messages={Array.from(vehicle.chat)}></Chat>
 			</View>

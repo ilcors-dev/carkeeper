@@ -3,13 +3,12 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import {
 	CompositeScreenProps,
 	NavigatorScreenParams,
-} from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ChatMessage } from "./models/ChatMessage";
+} from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 declare global {
 	namespace ReactNavigation {
@@ -23,6 +22,12 @@ export type RootStackParamList = {
 	VehicleAssociation: undefined;
 	StatsTravel: { _id: Realm.BSON.ObjectId };
 	Vehicle: { _id: Realm.BSON.ObjectId };
+	VehicleAddReminder: {
+		_id: Realm.BSON.ObjectId;
+	};
+	VehicleShowReminder: {
+		_id: Realm.BSON.ObjectId;
+	};
 	Modal: undefined;
 	NotFound: undefined;
 	HandleVehicleSpace: undefined;

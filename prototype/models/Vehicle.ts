@@ -6,13 +6,15 @@ import { Client } from '@shaggytools/nhtsa-api-wrapper';
 import { VehicleDataPiece } from './VehicleDataPiece';
 import ContextCreation from './ContextCreation';
 import { ChatMessage } from './ChatMessage';
+import { VehicleReminder } from './VehicleReminder';
 
 export class Vehicle extends Realm.Object {
 	_id!: Realm.BSON.ObjectId;
 	uuid!: string;
 	vin!: string;
 	vehicleData!: List<VehicleDataPiece>;
-	chat!: List<ChatMessage>
+	chat!: List<ChatMessage>;
+	reminders!: List<VehicleReminder>;
 	createdAt!: Date;
 	updatedAt!: Date;
 
@@ -37,6 +39,7 @@ export class Vehicle extends Realm.Object {
 			vin: 'string',
 			vehicleData: 'VehicleDataPiece[]',
 			chat: 'ChatMessage[]',
+			reminders: 'VehicleReminder[]',
 			createdAt: { type: 'date', default: new Date() },
 			updatedAt: { type: 'date', default: new Date() },
 		},

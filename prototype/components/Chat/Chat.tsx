@@ -1,14 +1,14 @@
-import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import {
 	Text,
 	ScrollView,
 	View,
 	StyleSheet,
 	TouchableOpacity,
-} from "react-native";
-import { ChatMessage } from "../../models/ChatMessage";
-import { ChatMessageItem } from "./ChatMessageItem";
+} from 'react-native';
+import { ChatMessage } from '../../models/ChatMessage';
+import { ChatMessageItem } from './ChatMessageItem';
 
 interface Props {
 	// List of ChatMessage
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 		padding: 16,
 		marginBottom: 16,
 		marginTop: 10,
-		height: "100%",
-		width: "100%",
+		height: '100%',
+		width: '100%',
 	},
 });
